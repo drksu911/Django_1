@@ -1,0 +1,20 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+
+# Poetry
+poetry.lock
