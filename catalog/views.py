@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from .models import Contact, Product
 
 
 def home(request):
     """Главная страница"""
-    return render(request, 'home.html')
+    latest_products = Product.objects.order_by('-created_at')[:5]
+    print(latest_products)  # в консоль
+    return render(request, 'catalog/home.html')
 
 
 def contacts(request):
@@ -20,4 +23,4 @@ def contacts(request):
         # Можно также вывести в консоль
         print(f"Получено сообщение от {name} ({email}): {message}")
 
-    return render(request, 'contacts.html', {'success_message': success_message})
+    return render(request, 'catalog/contacts.html', {'success_message': success_message})
