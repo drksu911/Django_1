@@ -1,0 +1,67 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+        "name": "Смартфон",
+        "description": "Новый смартфон",
+        "image": "",
+        "category": 4,
+        "price": "500.00",
+        "created_at": "2026-03-01T17:28:48.746Z",
+        "updated_at": "2026-03-01T17:28:48.746Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+        "name": "Ноутбук",
+        "description": "Игровой ноутбук",
+        "image": "",
+        "category": 4,
+        "price": "1200.00",
+        "created_at": "2026-03-01T17:28:48.753Z",
+        "updated_at": "2026-03-01T17:28:48.753Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+        "name": "Футболка",
+        "description": "Хлопок",
+        "image": "",
+        "category": 5,
+        "price": "20.00",
+        "created_at": "2026-03-01T17:28:48.755Z",
+        "updated_at": "2026-03-01T17:28:48.755Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+        "name": "Джинсы",
+        "description": "Синие джинсы",
+        "image": "",
+        "category": 5,
+        "price": "45.00",
+        "created_at": "2026-03-01T17:28:48.756Z",
+        "updated_at": "2026-03-01T17:28:48.756Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+        "name": "Питон",
+        "description": "Книга по Python",
+        "image": "",
+        "category": 6,
+        "price": "30.00",
+        "created_at": "2026-03-01T17:28:48.758Z",
+        "updated_at": "2026-03-01T17:28:48.758Z"
+    }
+}
+]
