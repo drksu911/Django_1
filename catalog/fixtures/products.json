@@ -1,54 +1,67 @@
 [
 {
     "model": "catalog.product",
-    "pk": 1,
+    "pk": 5,
     "fields": {
-        "name": "Смартфон X",
-        "description": "Современный смартфон с отличной камерой",
+        "name": "Смартфон",
+        "description": "Новый смартфон",
         "image": "",
-        "category": 1,
-        "price": "599.99",
-        "created_at": "2025-01-01T12:00:00Z",
-        "updated_at": "2025-01-01T12:00:00Z"
+        "category": 4,
+        "price": "500.00",
+        "created_at": "2026-03-01T17:28:48.746Z",
+        "updated_at": "2026-03-01T17:28:48.746Z"
     }
 },
 {
     "model": "catalog.product",
-    "pk": 2,
+    "pk": 6,
     "fields": {
-        "name": "Ноутбук Pro",
-        "description": "Мощный ноутбук для работы и игр",
+        "name": "Ноутбук",
+        "description": "Игровой ноутбук",
         "image": "",
-        "category": 1,
-        "price": "1299.50",
-        "created_at": "2025-01-01T12:00:00Z",
-        "updated_at": "2025-01-01T12:00:00Z"
+        "category": 4,
+        "price": "1200.00",
+        "created_at": "2026-03-01T17:28:48.753Z",
+        "updated_at": "2026-03-01T17:28:48.753Z"
     }
 },
 {
     "model": "catalog.product",
-    "pk": 3,
+    "pk": 7,
     "fields": {
-        "name": "Футболка с принтом",
-        "description": "Хлопковая футболка",
+        "name": "Футболка",
+        "description": "Хлопок",
         "image": "",
-        "category": 2,
-        "price": "19.99",
-        "created_at": "2025-01-01T12:00:00Z",
-        "updated_at": "2025-01-01T12:00:00Z"
+        "category": 5,
+        "price": "20.00",
+        "created_at": "2026-03-01T17:28:48.755Z",
+        "updated_at": "2026-03-01T17:28:48.755Z"
     }
 },
 {
     "model": "catalog.product",
-    "pk": 4,
+    "pk": 8,
     "fields": {
-        "name": "Война и мир",
-        "description": "Роман Льва Толстого",
+        "name": "Джинсы",
+        "description": "Синие джинсы",
         "image": "",
-        "category": 3,
-        "price": "15.00",
-        "created_at": "2025-01-01T12:00:00Z",
-        "updated_at": "2025-01-01T12:00:00Z"
+        "category": 5,
+        "price": "45.00",
+        "created_at": "2026-03-01T17:28:48.756Z",
+        "updated_at": "2026-03-01T17:28:48.756Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+        "name": "Питон",
+        "description": "Книга по Python",
+        "image": "",
+        "category": 6,
+        "price": "30.00",
+        "created_at": "2026-03-01T17:28:48.758Z",
+        "updated_at": "2026-03-01T17:28:48.758Z"
     }
 }
 ]
