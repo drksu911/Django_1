@@ -1,26 +1,37 @@
-from django.shortcuts import render
-from .models import Contact, Product
-
+from django.shortcuts import render, get_object_or_404
+from .models import Product, Contact
+from .forms import ProductForm  # если вы создавали форму для добавления товара
+from django.shortcuts import redirect
 
 def home(request):
-    """Главная страница"""
-    latest_products = Product.objects.order_by('-created_at')[:5]
-    print(latest_products)  # в консоль
-    return render(request, 'catalog/home.html')
-
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'catalog/home.html', context)
 
 def contacts(request):
-    """Страница контактов с обработкой формы"""
-    success_message = None
+    # Получаем первый контакт из базы (или None, если записей нет)
+    contact_info = Contact.objects.first()
+    context = {'contact_info': contact_info}
     if request.method == 'POST':
-        # Получаем данные из формы
+        # Обработка данных формы обратной связи
         name = request.POST.get('name')
-        email = request.POST.get('email')
+        phone = request.POST.get('phone')
         message = request.POST.get('message')
-        # Здесь можно сохранить данные в базу или отправить письмо
-        # Для демонстрации просто покажем сообщение
-        success_message = f"Спасибо, {name}! Ваше сообщение отправлено."
-        # Можно также вывести в консоль
-        print(f"Получено сообщение от {name} ({email}): {message}")
+        print(f'Имя: {name}, Телефон: {phone}, Сообщение: {message}')
+        context['success'] = True  # флаг успешной отправки
+    return render(request, 'catalog/contacts.html', context)
 
-    return render(request, 'catalog/contacts.html', {'success_message': success_message})
+def product_detail(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    context = {'product': product}
+    return render(request, 'catalog/product_detail.html', context)
+
+def product_create(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = ProductForm()
+    return render(request, 'catalog/product_form.html', {'form': form})
