@@ -1,37 +1,38 @@
-from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView, View
+from django.shortcuts import render
+from django.urls import reverse_lazy
 from .models import Product, Contact
-from .forms import ProductForm  # если вы создавали форму для добавления товара
-from django.shortcuts import redirect
+from .forms import ProductForm
 
-def home(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'catalog/home.html', context)
+class HomeListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'products'
+    paginate_by = 4
 
-def contacts(request):
-    # Получаем первый контакт из базы (или None, если записей нет)
-    contact_info = Contact.objects.first()
-    context = {'contact_info': contact_info}
-    if request.method == 'POST':
-        # Обработка данных формы обратной связи
+class ContactsView(View):
+    template_name = 'catalog/contacts.html'
+
+    def get(self, request, *args, **kwargs):
+        contact_info = Contact.objects.first()
+        return render(request, self.template_name, {'contact_info': contact_info})
+
+    def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         print(f'Имя: {name}, Телефон: {phone}, Сообщение: {message}')
-        context['success'] = True  # флаг успешной отправки
-    return render(request, 'catalog/contacts.html', context)
+        contact_info = Contact.objects.first()
+        context = {'contact_info': contact_info, 'success': True}
+        return render(request, self.template_name, context)
 
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {'product': product}
-    return render(request, 'catalog/product_detail.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
 
-def product_create(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = ProductForm()
-    return render(request, 'catalog/product_form.html', {'form': form})
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('home')
