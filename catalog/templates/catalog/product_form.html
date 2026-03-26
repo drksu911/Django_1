@@ -1,15 +1,15 @@
 {% extends 'catalog/base.html' %}
 
-{% block title %}Добавить товар | Skystore{% endblock %}
+{% block title %}{% if object %}Редактирование товара{% else %}Добавление товара{% endif %}{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Добавить новый товар</h1>
+    <h1 class="mb-4">{% if object %}Редактирование товара{% else %}Добавление нового товара{% endif %}</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Сохранить</button>
-        <a href="{% url 'home' %}" class="btn btn-secondary">Отмена</a>
+        <a href="{% if object %}{% url 'product_detail' object.pk %}{% else %}{% url 'home' %}{% endif %}" class="btn btn-secondary">Отмена</a>
     </form>
 </div>
 {% endblock %}
