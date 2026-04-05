@@ -1,20 +1,58 @@
-# Django
-*.log
-*.pot
-*.pyc
+# Python
 __pycache__/
-db.sqlite3
-media/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
 
 # Virtual environment
 venv/
 env/
-ENV/
-.venv/
+.env
+.venv
 
-# IDE
-.idea/
+# Database
+*.sqlite3
+db.sqlite3
+
+# Media and static files
+media/
+staticfiles/
+static/
+
+# IDE and editors
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
 
-# Poetry
-poetry.lock
+# Environment variables
+.env.local
+.env.*.local
+
+# Django migration files (optional — если хотите игнорировать миграции, но обычно их нужно коммитить)
+# */migrations/__pycache__/
+# */migrations/*.pyc
+# */migrations/*.pyc
+
+# Testing and coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Celery
+celerybeat-schedule
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/

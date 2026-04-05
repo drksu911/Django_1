@@ -1,0 +1,12 @@
+{% if user.is_authenticated %}
+    {% if product.owner == user or perms.catalog.delete_product %}
+        <a href="{% url 'product_update' product.pk %}" class="btn btn-warning">Редактировать</a>
+        <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+    {% endif %}
+    {% if perms.catalog.can_unpublish_product and product.is_published %}
+        <form method="post" action="{% url 'unpublish_product' product.pk %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary">Снять с публикации</button>
+        </form>
+    {% endif %}
+{% endif %}
