@@ -1,23 +1,12 @@
-{% extends 'catalog/base.html' %}
-
-{% block title %}{{ product.name }} | Skystore{% endblock %}
-
-{% block content %}
-<div class="row mt-5">
-    <div class="col-md-6">
-        {% if product.image %}
-            <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
-        {% else %}
-            <img src="https://via.placeholder.com/400x300" class="img-fluid" alt="Placeholder">
-        {% endif %}
-    </div>
-    <div class="col-md-6">
-        <h1>{{ product.name }}</h1>
-        <p><strong>Категория:</strong> {{ product.category.name }}</p>
-        <p><strong>Цена:</strong> {{ product.price }} руб.</p>
-        <p><strong>Описание:</strong> {{ product.description }}</p>
-        <p><strong>Дата добавления:</strong> {{ product.created_at|date:"d.m.Y" }}</p>
-        <a href="{% url 'home' %}" class="btn btn-secondary">Назад к каталогу</a>
-    </div>
-</div>
-{% endblock %}
+{% if user.is_authenticated %}
+    {% if product.owner == user or perms.catalog.delete_product %}
+        <a href="{% url 'product_update' product.pk %}" class="btn btn-warning">Редактировать</a>
+        <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+    {% endif %}
+    {% if perms.catalog.can_unpublish_product and product.is_published %}
+        <form method="post" action="{% url 'unpublish_product' product.pk %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary">Снять с публикации</button>
+        </form>
+    {% endif %}
+{% endif %}
