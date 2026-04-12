@@ -2,8 +2,11 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from .models import Product, Contact
+from django.core.cache import cache
+from django.conf import settings
+from .models import Product, Contact, Category
 from .forms import ProductForm
+from .services import get_products_by_category
 
 class HomeListView(ListView):
     model = Product
@@ -12,6 +15,13 @@ class HomeListView(ListView):
     paginate_by = 4
 
     def get_queryset(self):
+        if settings.CACHE_ENABLED:
+            key = 'products_list_all'
+            products = cache.get(key)
+            if products is None:
+                products = Product.objects.filter(is_published=True)
+                cache.set(key, products, 60 * 5)  # кеш на 5 минут
+            return products
         return Product.objects.filter(is_published=True)
 
 class ProductDetailView(DetailView):
@@ -81,3 +91,19 @@ class UnpublishProductView(LoginRequiredMixin, PermissionRequiredMixin, View):
         product.is_published = False
         product.save()
         return redirect('home')
+
+
+class ProductByCategoryView(ListView):
+    model = Product
+    template_name = 'catalog/products_by_category.html'
+    context_object_name = 'products'
+    paginate_by = 6
+
+    def get_queryset(self):
+        category_id = self.kwargs['pk']
+        return get_products_by_category(category_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.get(pk=self.kwargs['pk'])
+        return context

@@ -4,7 +4,7 @@
         <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
     {% endif %}
     {% if perms.catalog.can_unpublish_product and product.is_published %}
-        <form method="post" action="{% url 'unpublish_product' product.pk %}" style="display:inline;">
+        <form method="post" action="{% url 'unpublish_product' product.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-secondary">Снять с публикации</button>
         </form>

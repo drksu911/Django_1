@@ -45,6 +45,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'catalog.context_processors.categories',
             ],
         },
     },
@@ -88,3 +89,23 @@ DEFAULT_FROM_EMAIL = 'noreply@skystore.com'
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'home'   # главная страница
 LOGIN_URL = 'login'           # страница входа
+
+# Настройки кеширования
+CACHE_ENABLED = True  # можно выключить для отладки
+
+if CACHE_ENABLED:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379/1',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
